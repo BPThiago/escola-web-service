@@ -1,14 +1,5 @@
 ﻿using System.Xml.Linq;
 using EscolaWebService.Domain.Enums;
-using EscolaWebService.Domain.Escola.Aluno.Sink;
-using EscolaWebService.Domain.Escola.Aluno.Source;
-using EscolaWebService.Domain.Escola.Aluno.Transform;
-using EscolaWebService.Domain.Escola.Disciplina.Sink;
-using EscolaWebService.Domain.Escola.Disciplina.Source;
-using EscolaWebService.Domain.Escola.Disciplina.Transform;
-using EscolaWebService.Domain.Escola.Matricula.Sink;
-using EscolaWebService.Domain.Escola.Matricula.Source;
-using EscolaWebService.Domain.Escola.Matricula.Transform;
 using EscolaWebService.Factory;
 using EscolaWebService.Interfaces;
 
