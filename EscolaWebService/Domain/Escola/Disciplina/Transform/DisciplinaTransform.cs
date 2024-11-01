@@ -8,13 +8,20 @@ public class DisciplinaTransform : ITransform
 {
     public XDocument ConvertData(List<IModel> data)
     {
-        var disciplinas = data.Cast<DisciplinaModel>().ToList();
+        var xmlElements = new List<XElement>();
+        foreach (IModel disciplina in data)
+        {
+            DisciplinaModel disciplinaClone = (DisciplinaModel) disciplina.Clone();
+            xmlElements.Add(
+                new XElement("Disciplina",
+                    new XElement("Id", disciplinaClone.Id),
+                    new XElement("Nome", disciplinaClone.Nome),
+                    new XElement("Descricao", disciplinaClone.Descricao)
+                    )
+                );
+        }
         XDocument xmlDoc = new XDocument(new XElement("Disciplinas",
-            disciplinas.Select(disciplina => new XElement("Disciplina",
-                new XElement("Id", disciplina.Id),
-                new XElement("Nome", disciplina.Nome),
-                new XElement("Descricao", disciplina.Descricao)
-            ))
+            xmlElements
         ));
         
         return xmlDoc;

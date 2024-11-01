@@ -8,13 +8,20 @@ namespace EscolaWebService.Domain.Escola.Matricula.Transform
     {
         public XDocument ConvertData(List<IModel> data)
         {
-            var matriculas = data.Cast<MatriculaModel>().ToList();
+            var xmlElements = new List<XElement>();
+            foreach (IModel matricula in data)
+            {
+                MatriculaModel matriculaClone = (MatriculaModel) matricula.Clone();
+                xmlElements.Add(
+                    new XElement("Matricula",
+                        new XElement("Id", matriculaClone.Id),
+                        new XElement("AlunoId", matriculaClone.AlunoId),
+                        new XElement("DisciplinaId", matriculaClone.DisciplinaId)
+                    )
+                );
+            }
             XDocument xmlDoc = new XDocument(new XElement("Matriculas",
-                matriculas.Select(matricula => new XElement("Matricula",
-                    new XElement("Id", matricula.Id),
-                    new XElement("AlunoId", matricula.AlunoId),
-                    new XElement("DisciplinaId", matricula.DisciplinaId)
-                ))
+                xmlElements
             ));
 
             return xmlDoc;

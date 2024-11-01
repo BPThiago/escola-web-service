@@ -8,13 +8,20 @@ namespace EscolaWebService.Domain.Escola.Aluno.Transform
     {
         public XDocument ConvertData(List<IModel> data)
         {
-            var alunos = data.Cast<AlunoModel>().ToList();
+            var xmlElements = new List<XElement>();
+            foreach (IModel aluno in data)
+            {
+                AlunoModel alunoClone = (AlunoModel) aluno.Clone();
+                xmlElements.Add(
+                    new XElement("Aluno",
+                        new XElement("Id", alunoClone.Id),
+                        new XElement("Nome", alunoClone.Nome),
+                        new XElement("Endereco", alunoClone.Endereco)
+                    )
+                );
+            }
             XDocument xmlDoc = new XDocument(new XElement("Alunos",
-                alunos.Select(aluno => new XElement("Aluno",
-                    new XElement("Id", aluno.Id),
-                    new XElement("Nome", aluno.Nome),
-                    new XElement("Endereco", aluno.Endereco)
-                ))
+                xmlElements
             ));
 
             return xmlDoc;
